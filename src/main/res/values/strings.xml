@@ -1,0 +1,12 @@
+<resources>
+    <string name="enter_text">Enter text here</string>
+    <string name="count">Count</string>
+    <string name="words">Words</string>
+    <string name="chars">Characters</string>
+    <string-array name="count_options">
+        <item>@string/words</item>
+        <item>@string/chars</item>
+    </string-array>
+    <string name="empty_text_warning">Please enter text before counting.</string>
+    <string name="result">Result: %d</string>
+</resources>
