@@ -1,49 +1,44 @@
 package com.example.task2;
 
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
-import org.junit.Rule;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(AndroidJUnit4.class)
+
 public class ExampleInstrumentedTest {
 
-    // This rule launches the MainActivity before each test
-    @Rule
-    public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void testEditTextInput() {
-        // Type text into the EditText
+    public void testCharacterCount() {
+
         Espresso.onView(ViewMatchers.withId(R.id.editText))
-                .perform(ViewActions.typeText("Hello"), ViewActions.closeSoftKeyboard());
+                .perform(ViewActions.typeText("Hello, this is a test string"));
 
-        // Click the count button
-        Espresso.onView(ViewMatchers.withId(R.id.countButton)).perform(ViewActions.click());
 
-        // Check if the resultTextView displays the correct result
-        Espresso.onView(ViewMatchers.withId(R.id.resultTextView))
-                .check(ViewAssertions.matches(ViewMatchers.withText("Result: 1")));
-    }
-
-    @Test
-    public void testSpinnerSelection() {
-        // Select "Characters" from the spinner
-        Espresso.onView(ViewMatchers.withId(R.id.spinner))
+        Espresso.onView(ViewMatchers.withId(R.id.countButton))
                 .perform(ViewActions.click());
-        Espresso.onData(ViewMatchers.is("Characters")).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.countButton))
+                .perform(ViewActions.click());
 
-        // Click the count button
-        Espresso.onView(ViewMatchers.withId(R.id.countButton)).perform(ViewActions.click());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        // Check if the resultTextView displays the correct result
-        Espresso.onView(ViewMatchers.withId(R.id.resultTextView))
-                .check(ViewAssertions.matches(ViewMatchers.withText("Result: 0")));
+
+        Espresso.onView(ViewMatchers.withId(R.id.countButton))
+                .check(matches(isDisplayed()))
+                .check(matches(withText("Character count: 30\nWord count: 6")));
+
     }
+
+
 }
